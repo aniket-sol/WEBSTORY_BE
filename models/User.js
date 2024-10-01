@@ -21,7 +21,7 @@ const UserSchema = new Schema({
 // Use a partial index to ignore documents where bookmarks.story or bookmarks.index is null
 UserSchema.index(
     { 'bookmarks.story': 1, 'bookmarks.index': 1 },
-    { unique: true, partialFilterExpression: { 'bookmarks.story': { $exists: true }, 'bookmarks.index': { $exists: true } } }
+    { unique: true, partialFilterExpression: { 'bookmarks.story': { $ne: null }, 'bookmarks.index': { $ne: null } } }
 );
 
 module.exports = mongoose.model('User', UserSchema);
