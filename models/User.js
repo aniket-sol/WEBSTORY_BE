@@ -14,7 +14,7 @@ const UserSchema = new Schema({
     },
     bookmarks: [{
         story: { type: mongoose.Schema.Types.ObjectId, ref: 'Story' }, // Reference to Story
-        index: { type: Number, required: true } // Store the index alongside the story reference
+        index: { type: Number } // Store the index alongside the story reference
     }],
 });
 
