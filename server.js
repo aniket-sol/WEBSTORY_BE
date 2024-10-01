@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 // Load environment variables
 dotenv.config();
@@ -11,23 +12,22 @@ const app = express();
 const port = process.env.PORT || 3002;
 const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/WEBSTORY';
 
-// Connect to MongoDB
+// Connect to MongoDB Atlas
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  .then(() => console.log("MongoDB connected successfully"))
-  .catch((error) => console.log("MongoDB connection error:", error));
+  .then(() => {
+    console.log('Successfully connected to MongoDB Atlas!');
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB Atlas:', error);
+  });
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors(
-      {
-    origin: 'https://web-story-tau.vercel.app/', // Replace with your frontend's deployed URL
-    credentials: true
-  }
-));
+app.use(cors());
 
 // Routes
 const storyRoutes = require('./routes/stories');
